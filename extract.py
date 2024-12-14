@@ -49,7 +49,15 @@ try:
 
             # Extract the professor's specialty
             try:
-                specialty = driver.find_elements(By.CSS_SELECTOR, "div.gdlr-core-text-box-item.gdlr-core-item-pdlr.gdlr-core-item-pdb.gdlr-core-left-align div.gdlr-core-text-box-item-content p")[1].text
+                text_boxes = driver.find_elements(By.CSS_SELECTOR, "div.gdlr-core-text-box-item.gdlr-core-item-pdlr.gdlr-core-item-pdb.gdlr-core-left-align")
+                if len(text_boxes) > 1:
+                    content_elements = text_boxes[1].find_elements(By.CSS_SELECTOR, "div.gdlr-core-text-box-item-content")
+                    if content_elements:
+                        specialty = content_elements[0].text
+                    else:
+                        specialty = "-"
+                else:
+                    specialty = "-"
             except:
                 specialty = "-"
 
